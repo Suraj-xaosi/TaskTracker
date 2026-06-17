@@ -22,7 +22,7 @@ router.get(
     // Successful authentication, send a token
     const token = jwt.sign(
       { userId: req.user._id, username: req.user.username },
-      "secretKey"
+      configs.jwtSecret
     )
     res.redirect(`${configs.googleAuthClientSuccessURL}/success?token=${token}`)
   }
