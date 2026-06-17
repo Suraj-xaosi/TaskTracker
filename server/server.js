@@ -1,3 +1,5 @@
+import dns from "dns"
+dns.setServers(["8.8.8.8", "1.1.1.1"])
 import express from "express"
 import mongoose from "mongoose"
 import passport from "passport"
@@ -21,10 +23,7 @@ app.use(morgan("dev"))
 app.use(passport.initialize())
 
 // Connect to MongoDB
-mongoose.connect(configs.dbURL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+mongoose.connect(configs.dbURL)
 const db = mongoose.connection
 db.on("error", console.error.bind(console, "MongoDB connection error:"))
 db.once("open", () => {

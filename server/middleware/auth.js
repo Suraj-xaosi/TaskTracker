@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken"
+import configs from "../config/config.js"
 
 // Middleware to verify JWT token
 export const verifyToken = (req, res, next) => {
@@ -16,7 +17,7 @@ export const verifyToken = (req, res, next) => {
     return res.status(401).json({ error: "Unauthorized - Missing token" })
   }
 
-  jwt.verify(token, "secretKey", (err, decoded) => {
+  jwt.verify(token, configs.jwtSecret, (err, decoded) => {
     if (err) {
       return res.status(401).json({ error: "Unauthorized - Invalid token" })
     }

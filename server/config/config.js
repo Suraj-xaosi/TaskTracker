@@ -1,5 +1,6 @@
 const configs = {
   dbURL: process.env.MONGODB_URL,
+  jwtSecret: process.env.JWT_SECRET,
   googleAuthClientId: process.env.GOOGLE_AUTH_CLIENT_ID,
   googleAuthClientSecret: process.env.GOOGLE_AUTH_CLIENT_SECRET,
   googleAuthServerCallbackURL: process.env.GOOGLE_AUTH_SERVER_CALLBACK,
