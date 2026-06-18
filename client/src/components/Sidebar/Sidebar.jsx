@@ -24,10 +24,9 @@ export default function AppSidebar() {
   const [user, setUser] = useState({})
   const [open, setOpen] = useState(false)
   const [dailyScore, setDailyScore] = useState(0)
-  const { cycles, loading } = useCycle()
+  const { cycles, loading, currentCycle, setCurrentCycle } = useCycle()
 
   const { logout } = useAuthToken()
-
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -60,6 +59,10 @@ export default function AppSidebar() {
     navigate("/")
   }
 
+  const today = new Date()
+  const activeCycles = cycles.filter((c) => new Date(c.endDate) >= today)
+  const pastCycles = cycles.filter((c) => new Date(c.endDate) < today)
+
   if (loading) {
     return <div>Loading cycles...</div>
   }
@@ -86,32 +89,36 @@ export default function AppSidebar() {
         </div>
       </SidebarHeader>
       <SidebarContent>
+        {/* Active Cycles */}
         <SidebarGroup>
           <SidebarGroupLabel>
             <span className='p-1 uppercase font-bold text-neutral-100 lexend-giga-700'>
-              Current Cycle
+              Current Cycles
             </span>
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               <div className='p-3'>
-                {cycles.length > 0 ? (
+                {activeCycles.length > 0 ? (
                   <div className='flex flex-col gap-3'>
-                    {cycles.map((cycle) => (
+                    {activeCycles.map((cycle) => (
                       <div
                         key={cycle._id}
-                        className='cursor-pointer bg-gradient-to-br from-neutral-800 to-neutral-900 border border-neutral-800 rounded-md px-5 py-3'
+                        onClick={() => setCurrentCycle(cycle)}
+                        className={`cursor-pointer bg-gradient-to-br from-neutral-800 to-neutral-900 border rounded-md px-5 py-3 transition-all
+                          ${currentCycle?._id === cycle._id
+                            ? "border-lime-400 text-lime-400"
+                            : "border-neutral-800 text-neutral-100 hover:border-neutral-600"
+                          }`}
                       >
-                        <span>{cycle.title}</span>
+                        <span className="text-sm font-semibold">{cycle.title}</span>
                       </div>
                     ))}
                   </div>
                 ) : (
-                  <>
-                    <p className='text-neutral-400'>
-                      No cycles found. Create one to get started!
-                    </p>
-                  </>
+                  <p className='text-neutral-400 text-sm'>
+                    No active cycles. Create one to get started!
+                  </p>
                 )}
                 <Dialog open={open} onOpenChange={setOpen}>
                   <DialogTrigger asChild>
@@ -131,13 +138,42 @@ export default function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-        <SidebarGroup>
-          <SidebarGroupLabel>
-            <span className='p-1 uppercase font-bold text-neutral-100 lexend-giga-700'>
-              Past Cycles
-            </span>
-          </SidebarGroupLabel>
-        </SidebarGroup>
+
+        {/* Past Cycles */}
+        {pastCycles.length > 0 && (
+          <SidebarGroup>
+            <SidebarGroupLabel>
+              <span className='p-1 uppercase font-bold text-neutral-100 lexend-giga-700'>
+                Past Cycles
+              </span>
+            </SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                <div className='p-3'>
+                  <div className='flex flex-col gap-3'>
+                    {pastCycles.map((cycle) => (
+                      <div
+                        key={cycle._id}
+                        onClick={() => setCurrentCycle(cycle)}
+                        className={`cursor-pointer bg-gradient-to-br from-neutral-800 to-neutral-900 border rounded-md px-5 py-3 transition-all opacity-60
+                          ${currentCycle?._id === cycle._id
+                            ? "border-lime-400 text-lime-400 opacity-100"
+                            : "border-neutral-800 text-neutral-400 hover:border-neutral-600"
+                          }`}
+                      >
+                        <span className="text-sm font-semibold">{cycle.title}</span>
+                        <p className="text-xs text-neutral-500 mt-1">
+                          Ended {new Date(cycle.endDate).toLocaleDateString()}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        )}
+
         <Separator />
         <SidebarFooter>
           <button

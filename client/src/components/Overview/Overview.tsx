@@ -6,32 +6,31 @@ import PendingTasks from "./PendingTasks"
 import LogProgress from "./LogProgress"
 import { useCycle } from "../../context/CycleContext"
 
-function calculateWeeksBetween(startDate, endDate, includePartial = false) {
+function calculateWeeksBetween(startDate, endDate) {
   const start = new Date(startDate)
   const end = new Date(endDate)
-
   const differenceInMs = Math.abs(end - start)
-  const weeks = differenceInMs / (1000 * 60 * 60 * 24 * 7)
-
-  return includePartial ? weeks : Math.floor(weeks)
+  return Math.floor(differenceInMs / (1000 * 60 * 60 * 24 * 7))
 }
 
 const Overview = ({ setCurrentTab }) => {
   const { currentCycle } = useCycle()
-  const { goals, startDate, endDate } = currentCycle
 
-  const resolvedGoals = JSON.parse(JSON.stringify(goals))
+  if (!currentCycle) return null
 
-  const completedGoals = resolvedGoals.filter(
+  const { goals = [], startDate, endDate } = currentCycle
+
+  // Use slice not splice — splice mutates the state array directly
+  const completedGoals = goals.filter(
     (goal) => goal.status === "completed"
   ).length
 
   const weeksPassed = calculateWeeksBetween(startDate, new Date())
-  const totalWeeks = calculateWeeksBetween(endDate, startDate)
+  const totalWeeks = calculateWeeksBetween(startDate, endDate)
+  const totalGoals = goals.length
 
-  const totalGoals = currentCycle?.goals.length
   return (
-    <div className='w-full h-full grid grid-cols-12 gap-3 '>
+    <div className='w-full h-full grid grid-cols-12 gap-3'>
       <div className='col-span-4 row-span-2'>
         <DailyExecutionTrend />
       </div>
