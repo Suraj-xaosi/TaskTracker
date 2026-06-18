@@ -18,7 +18,6 @@ import { Separator } from "../ui/separator"
 const VisionBoard = ({ setCurrentTab }) => {
   const { currentCycle, updateCycle } = useCycle()
   const [image, setImage] = useState(currentCycle?.visionBoardImage || "")
-  console.log(currentCycle)
 
   useEffect(() => {
     setImage(currentCycle?.visionBoardImage || "")
@@ -32,9 +31,12 @@ const VisionBoard = ({ setCurrentTab }) => {
     updateCycle({ ...currentCycle, visionBoardImage: image })
   }
 
+  // Use slice not splice — splice mutates the original goals array in state
+  const topGoals = currentCycle?.goals?.slice(0, 3) || []
+
   const dialog = (
     <Dialog>
-      <DialogTrigger className='h-full w-full cursor-pointer text-neutral-500  hover:text-lime-400 flex flex-col gap-3 justify-center items-center'>
+      <DialogTrigger className='h-full w-full cursor-pointer text-neutral-500 hover:text-lime-400 flex flex-col gap-3 justify-center items-center'>
         <div className='bg-neutral-800 text-lime-400 p-5 rounded-full'>
           <Image />
         </div>
@@ -61,14 +63,8 @@ const VisionBoard = ({ setCurrentTab }) => {
         </div>
         <DialogFooter>
           <div className='flex justify-end gap-2'>
-            <DialogClose>
-              <button
-                type='submit'
-                onClick={handleAddVisionBoard}
-                className='text-sm px-4 py-2 bg-lime-400 text-neutral-900 lexend-giga-700 uppercase font-bold rounded-lg'
-              >
-                Save
-              </button>
+            <DialogClose onClick={handleAddVisionBoard}>
+              <button className='...'>Save</button>
             </DialogClose>
           </div>
         </DialogFooter>
@@ -86,7 +82,7 @@ const VisionBoard = ({ setCurrentTab }) => {
         {image ? (
           <div className='w-full grid grid-cols-2 gap-10 items-center'>
             <div className='relative cursor-pointer w-80 h-80 rounded-lg flex gap-3 justify-start items-center'>
-              <img className='rounded-lg w-full h-full' src={image}></img>
+              <img className='rounded-lg w-full h-full' src={image} alt="Vision board" />
               <div className='absolute z-10 top-0 left-0 rounded-lg bg-black opacity-0 hover:opacity-80 w-80 h-80 transition-all'>
                 {dialog}
               </div>
@@ -95,17 +91,18 @@ const VisionBoard = ({ setCurrentTab }) => {
               <h4 className='text-sm flex items-center gap-2 font-bold mb-2 lexend-giga-700 text-neutral-100 uppercase'>
                 <Star /> Your Top Goals
               </h4>
-              {currentCycle.goals?.splice(0, 3).map((goal) => (
-                <div
-                  key={goal._id}
-                  className='my-2 bg-neutral-100 rounded-full px-4 py-2'
-                >
-                  <span className='font-bold text-sm text-neutral-800'>
-                    {goal.title}
-                  </span>
-                </div>
-              ))}
-              {currentCycle.goals.length === 0 && (
+              {topGoals.length > 0 ? (
+                topGoals.map((goal) => (
+                  <div
+                    key={goal._id}
+                    className='my-2 bg-neutral-100 rounded-full px-4 py-2'
+                  >
+                    <span className='font-bold text-sm text-neutral-800'>
+                      {goal.title}
+                    </span>
+                  </div>
+                ))
+              ) : (
                 <div>
                   <span className='text-sm text-neutral-500'>
                     No goals added yet!

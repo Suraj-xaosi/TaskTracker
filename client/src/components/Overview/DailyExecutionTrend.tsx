@@ -17,38 +17,51 @@ const colors = [
   "bg-blue-950",
 ]
 
+const TOTAL_CELLS = 12 * 7 // 84 cells
+
 const mapScoreToColor = (score) => {
-  const level = Math.ceil(score / 10)
+  const level = Math.min(Math.ceil(score / 10), colors.length - 1)
   return colors[level]
 }
 
+// Build the base empty grid once — outside component to avoid re-creation
+const buildEmptyGrid = () =>
+  Array.from({ length: TOTAL_CELLS }, (_, i) => ({
+    score: null,
+    color: "bg-neutral-700",
+  }))
+
 const DailyExecutionTrend = () => {
   const { currentCycle } = useCycle()
-  const [data, setData] = useState([])
-
-  const heatMapdata = []
-  for (let i = 0; i < 12 * 7; i++) {
-    const depth = Math.floor(Math.random() * 20 + 3)
-    heatMapdata.push({
-      score: i,
-      color: "bg-neutral-700",
-    })
-  }
+  const [data, setData] = useState(buildEmptyGrid)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    if (currentCycle) {
-      const fetchTrend = async (cycleId) => {
+    if (!currentCycle) return
+
+    const fetchTrend = async (cycleId) => {
+      try {
+        setLoading(true)
         const res = await getDailyTrend(cycleId)
-        const d = [...heatMapdata]
-        for (let i = 0; i < res.length; i++) {
+
+        // Start from a fresh empty grid on every fetch
+        const grid = buildEmptyGrid()
+
+        // res is array of DailyScore objects: { executionScore, date, ... }
+        for (let i = 0; i < res.length && i < TOTAL_CELLS; i++) {
           const score = res[i].executionScore
-          const color = mapScoreToColor(score)
-          d[i] = { ...d[i], score, color }
+          grid[i] = { score, color: mapScoreToColor(score) }
         }
-        setData(d)
+
+        setData(grid)
+      } catch (error) {
+        console.error("Failed to fetch daily trend:", error)
+      } finally {
+        setLoading(false)
       }
-      fetchTrend(currentCycle._id)
     }
+
+    fetchTrend(currentCycle._id)
   }, [currentCycle])
 
   return (
@@ -57,21 +70,26 @@ const DailyExecutionTrend = () => {
         Daily Execution Trend
       </h2>
       <span className='text-xs text-neutral-400'>
-        A summary of how you've spent the every day of this cycle
+        A summary of how you've spent every day of this cycle
       </span>
       <Separator />
       <div
         className='w-full h-full grid grid-cols-12 gap-1 p-4 mt-3'
-        style={{
-          backgroundImage: "radial-gradient(#262626, #171717)",
-        }}
+        style={{ backgroundImage: "radial-gradient(#262626, #171717)" }}
       >
-        {data.map((d, i) => (
-          <div
-            key={i}
-            className={`w-4 h-4 rounded-full ${d.color} drop-shadow-xl shadow-red-200`}
-          ></div>
-        ))}
+        {loading ? (
+          <div className='col-span-12 flex items-center justify-center'>
+            <span className='text-neutral-400 text-sm'>Loading...</span>
+          </div>
+        ) : (
+          data.map((d, i) => (
+            <div
+              key={i}
+              title={d.score !== null ? `Score: ${Math.round(d.score)}` : "No data"}
+              className={`w-4 h-4 rounded-full ${d.color} drop-shadow-xl`}
+            />
+          ))
+        )}
       </div>
     </div>
   )

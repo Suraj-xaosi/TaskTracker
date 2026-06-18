@@ -9,6 +9,7 @@ const cycleBlueprint = (cycle) => {
     endDate: cycle.endDate,
     goals: cycle.goals.map((goal) => goalBlueprint(goal)),
     createdAt: cycle.createdAt,
+    visionBoardImage: cycle.visionBoardImage,
   }
 }
 
