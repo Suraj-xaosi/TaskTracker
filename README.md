@@ -1,4 +1,4 @@
-# Productivity Tracker Web App
+# Task Tracker Web App
 
 A personal productivity app that helps users manage goals across time-boxed cycles, track daily tasks, and automatically score execution progress.
 
@@ -52,27 +52,7 @@ Users log in with Google, create **Cycles** (time-boxed sprints with a start and
 
 All `/api/*` routes require a valid `Authorization: Bearer <token>` header.
 
-## Data Model
 
-```
-User
- └── Cycle (time-boxed sprint)
-      └── Goal (with status: backlog → todo → in-progress → completed)
-           ├── Tactic (simple checklist item)
-           └── Task (due-dated, drives DailyScore)
-                    ↓ (Mongoose hooks)
-               DailyScore (auto-computed per day)
-```
-
-## Automatic Scoring
-
-The `executionScore` is calculated automatically via Mongoose middleware hooks on the `Task` model — no manual API calls needed.
-
-```
-executionScore = (tasksCompleted / tasksTotal) × 100
-```
-
-The score updates whenever a task is created, its status changes, or it is deleted.
 
 ## Getting Started
 
@@ -109,8 +89,7 @@ cd client
 pnpm install
 pnpm dev
 ```
-
-
+frontend starts on port `5173` by default (or `PORT` env variable).
 
 ## Auth Flow
 
