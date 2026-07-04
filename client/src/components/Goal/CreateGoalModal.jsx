@@ -104,9 +104,9 @@ export default function CreateGoalModal({
   }
 
   return (
-    <DialogContent className='bg-neutral-900 border border-neutral-800 text-neutral-100 rounded-lg p-6'>
+    <DialogContent className='bg-card border border-border text-card-foreground rounded-lg p-6'>
       <DialogHeader>
-        <DialogTitle className='text-lg text-lime-400 uppercase lexend-giga-700'>
+        <DialogTitle className='text-lg text-foreground uppercase font-serif tracking-wide'>
           Add new goal
         </DialogTitle>
         <Separator className='my-3' />
@@ -117,28 +117,28 @@ export default function CreateGoalModal({
           className='flex flex-col gap-5'
         >
           <div>
-            <Label htmlFor='title' className='text-xs text-neutral-400'>
+            <Label htmlFor='title' className='text-xs text-muted-foreground'>
               Title
             </Label>
             <Input
               placeholder='For ex: Read 12 books...'
               id='title'
               type='text'
-              className='bg-neutral-800 mt-3 border-neutral-700 text-neutral-100 rounded-lg p-2 w-full'
+              className='bg-background mt-3 border-input text-foreground rounded-lg p-2 w-full'
               value={goal.title}
               onChange={(e) => setGoal({ ...goal, title: e.target.value })}
               required
             />
           </div>
           <div>
-            <Label htmlFor='description' className='text-xs text-neutral-400'>
+            <Label htmlFor='description' className='text-xs text-muted-foreground'>
               Description
             </Label>
             <Textarea
               cols={20}
               id='description'
               placeholder='Add more information about the goal here...'
-              className='bg-neutral-800 mt-3 border-neutral-700 text-neutral-100 rounded-lg p-2 w-full'
+              className='bg-background mt-3 border-input text-foreground rounded-lg p-2 w-full'
               value={goal.description}
               onChange={(e) =>
                 setGoal({ ...goal, description: e.target.value })
@@ -146,14 +146,14 @@ export default function CreateGoalModal({
             />
           </div>
           <div>
-            <Label className='text-xs text-neutral-400'>Status</Label>
+            <Label className='text-xs text-muted-foreground'>Status</Label>
             <Select>
-              <SelectTrigger className='mt-3 bg-neutral-800 border-neutral-700 rounded-lg p-2 w-full'>
+              <SelectTrigger className='mt-3 bg-background border-input rounded-lg p-2 w-full'>
                 <SelectValue
                   value={goal.status}
                   onChange={(e) => setGoal({ ...goal, status: e.target.value })}
                   placeholder='Select an option...'
-                  className='text-neutral-100'
+                  className='text-foreground'
                 />
               </SelectTrigger>
               <SelectContent>
@@ -167,13 +167,13 @@ export default function CreateGoalModal({
               </SelectContent>
             </Select>
           </div>
-          <Label className='text-xs text-neutral-400'>Tactics</Label>
+          <Label className='text-xs text-muted-foreground'>Tactics</Label>
           {goal.tactics?.map((tactic, index) => (
             <div key={index}>
               <Input
                 placeholder='Tactic Title'
                 type='text'
-                className='bg-neutral-800 border-neutral-700 text-neutral-100 rounded-lg p-2 w-full'
+                className='bg-background border-input text-foreground rounded-lg p-2 w-full'
                 value={tactic.title}
                 onChange={(e) => {
                   const newTactics = [...goal.tactics]
@@ -185,7 +185,7 @@ export default function CreateGoalModal({
               <Textarea
                 cols={20}
                 placeholder='Tactic Description'
-                className='bg-neutral-800 mt-3 border-neutral-700 text-neutral-100 rounded-lg p-2 w-full'
+                className='bg-background mt-3 border-input text-foreground rounded-lg p-2 w-full'
                 value={tactic.description}
                 onChange={(e) => {
                   const newTactics = [...(goal.tactics || [])]
@@ -196,7 +196,7 @@ export default function CreateGoalModal({
             </div>
           ))}
           <button
-            className='w-fit font-bold text-xs text-lime-400 lexend-giga-700 uppercase'
+            className='w-fit font-bold text-xs text-primary uppercase'
             onClick={addTactic}
           >
             + Add Tactic
@@ -205,11 +205,11 @@ export default function CreateGoalModal({
             <div className='flex justify-between'>
               <button
                 type='submit'
-                className='text-sm px-4 py-2 bg-lime-400 text-neutral-900 lexend-giga-700 uppercase font-bold rounded-lg'
+                className='text-sm px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 uppercase font-bold tracking-wide rounded-lg transition-colors'
               >
                 Save
               </button>
-              {goalError && <p style={{ color: "red" }}>{goalError}</p>}
+              {goalError && <p className="text-destructive">{goalError}</p>}
             </div>
           </DialogFooter>
         </form>

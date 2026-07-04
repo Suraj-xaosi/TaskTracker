@@ -85,22 +85,22 @@ const CreateCycleModal: React.FC<Props> = ({ setOpen }) => {
   }
 
   return (
-    <DialogContent className='bg-neutral-900 border border-neutral-800 text-neutral-100 rounded-lg p-6'>
+    <DialogContent className='bg-card border border-border text-card-foreground rounded-lg p-6'>
       <DialogHeader>
-        <DialogTitle className='text-lg text-lime-400 uppercase lexend-giga-700'>
+        <DialogTitle className='text-lg text-foreground uppercase font-serif tracking-wide'>
           Add new cycle
         </DialogTitle>
         <Separator className='my-3' />
       </DialogHeader>
       <form
         onSubmit={handleCreateCycle}
-        className='flex flex-col gap-5 text-neutral-900'
+        className='flex flex-col gap-5'
       >
         <div>
-          <Label className='text-xs text-neutral-400'>Title</Label>
+          <Label className='text-xs text-muted-foreground'>Title</Label>
           <Input
             placeholder='Cycle 1'
-            className='bg-neutral-800 mt-3 border-neutral-700 text-neutral-100 rounded-lg p-2 w-full'
+            className='bg-background mt-3 border-input text-foreground rounded-lg p-2 w-full'
             type='text'
             value={newCycle.title}
             onChange={(e) =>
@@ -110,9 +110,9 @@ const CreateCycleModal: React.FC<Props> = ({ setOpen }) => {
           />
         </div>
         <div>
-          <Label className='text-xs text-neutral-400'>Description</Label>
+          <Label className='text-xs text-muted-foreground'>Description</Label>
           <Textarea
-            className='bg-neutral-800 mt-3 border-neutral-700 text-neutral-100 rounded-lg p-2 w-full'
+            className='bg-background mt-3 border-input text-foreground rounded-lg p-2 w-full'
             placeholder='Description (Optional)'
             value={newCycle.description}
             onChange={(e) =>
@@ -121,13 +121,13 @@ const CreateCycleModal: React.FC<Props> = ({ setOpen }) => {
           />
         </div>
         <div>
-          <Label className='text-xs text-neutral-400'>Cycle Duration</Label>
+          <Label className='text-xs text-muted-foreground'>Cycle Duration</Label>
           <Popover modal={true}>
             <PopoverTrigger asChild>
               <Button
                 id='date'
                 variant={"outline"}
-                className='bg-neutral-800 mt-3 border-neutral-700 text-neutral-100 rounded-lg p-2 w-full'
+                className='bg-background mt-3 border-input text-foreground rounded-lg p-2 w-full'
               >
                 <CalendarIcon />
                 {date?.from ? (
@@ -157,10 +157,10 @@ const CreateCycleModal: React.FC<Props> = ({ setOpen }) => {
           </Popover>
         </div>
         <div>
-          <Label className='text-xs text-neutral-400'>Vision Board</Label>
+          <Label className='text-xs text-muted-foreground'>Vision Board</Label>
           <Input
             placeholder='Enter the URL to your image: https//example.com/image.jpg'
-            className='bg-neutral-800 mt-3 border-neutral-700 text-neutral-100 rounded-lg p-2 w-full'
+            className='bg-background mt-3 border-input text-foreground rounded-lg p-2 w-full'
             type='text'
             value={newCycle.visionBoardImage}
             onChange={(e) =>
@@ -177,8 +177,8 @@ const CreateCycleModal: React.FC<Props> = ({ setOpen }) => {
             <button
               type='submit'
               className={`text-sm px-4 py-2 ${
-                saving ? "bg-neutral-400" : "bg-lime-400"
-              } text-neutral-900 lexend-giga-700 uppercase font-bold rounded-lg`}
+                saving ? "bg-muted text-muted-foreground" : "bg-primary text-primary-foreground hover:bg-primary/90"
+              } uppercase font-bold tracking-wide rounded-lg transition-colors`}
             >
               {saving ? (
                 <div className="flex items-center gap-2">
@@ -192,7 +192,7 @@ const CreateCycleModal: React.FC<Props> = ({ setOpen }) => {
                 "Save"
               )}
             </button>
-            {error && <p className="text-red-500">{error}</p>}
+            {error && <p className="text-destructive">{error}</p>}
           </div>
         </DialogFooter>
       </form>

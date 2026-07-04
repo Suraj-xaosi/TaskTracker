@@ -70,9 +70,9 @@ export default function CreateTaskModal({
   }
 
   return (
-    <DialogContent className='bg-neutral-900 border border-neutral-800 text-neutral-100 rounded-lg p-6'>
+    <DialogContent className='bg-card border border-border text-card-foreground rounded-lg p-6'>
       <DialogHeader>
-        <DialogTitle className='text-lg text-lime-400 uppercase lexend-giga-700'>
+        <DialogTitle className='text-lg text-foreground uppercase font-serif tracking-wide'>
           Add new Task
         </DialogTitle>
         <Separator className='my-3' />
@@ -82,12 +82,12 @@ export default function CreateTaskModal({
         className='flex flex-col gap-5'
       >
         <div>
-          <Label htmlFor='title' className='text-xs text-neutral-400'>
+          <Label htmlFor='title' className='text-xs text-muted-foreground'>
             Title
           </Label>
           <Input
             placeholder='For ex: Workout...'
-            className='bg-neutral-800 mt-3 border-neutral-700 text-neutral-100 rounded-lg p-2 w-full'
+            className='bg-background mt-3 border-input text-foreground rounded-lg p-2 w-full'
             type='text'
             value={newTask.title}
             onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
@@ -99,7 +99,7 @@ export default function CreateTaskModal({
             <PopoverTrigger asChild>
               <Button
                 variant={"outline"}
-                className='bg-neutral-800 hover:bg-neutral-800 mt-3 border-neutral-700 text-neutral-100 hover:text-neutral-100 rounded-lg p-2 w-full'
+                className='bg-background hover:bg-accent mt-3 border-input text-foreground hover:text-foreground rounded-lg p-2 w-full'
               >
                 {newTask.dueDate ? (
                   format(newTask.dueDate, "PPP")
@@ -121,15 +121,15 @@ export default function CreateTaskModal({
           </Popover>
         </div>
         <div>
-          <Label className='text-xs text-neutral-400'>Goal</Label>
+          <Label className='text-xs text-muted-foreground'>Goal</Label>
           <Select
             onValueChange={(value) => setNewTask({ ...newTask, goalId: value })}
             value={newTask.goalId}
           >
-            <SelectTrigger className='mt-3 bg-neutral-800 border-neutral-700 rounded-lg p-2 w-full'>
+            <SelectTrigger className='mt-3 bg-background border-input rounded-lg p-2 w-full'>
               <SelectValue
                 placeholder='Select a goal...'
-                className='text-neutral-100'
+                className='text-foreground'
               />
             </SelectTrigger>
             <SelectContent>
@@ -144,15 +144,15 @@ export default function CreateTaskModal({
           </Select>
         </div>
         <div>
-          <Label className='text-xs text-neutral-400'>Status</Label>
+          <Label className='text-xs text-muted-foreground'>Status</Label>
           <Select
             onValueChange={(value) => setNewTask({ ...newTask, status: value })}
             value={newTask.status}
           >
-            <SelectTrigger className='mt-3 bg-neutral-800 border-neutral-700 rounded-lg p-2 w-full'>
+            <SelectTrigger className='mt-3 bg-background border-input rounded-lg p-2 w-full'>
               <SelectValue
                 placeholder='Select an option...'
-                className='text-neutral-100'
+                className='text-foreground'
               />
             </SelectTrigger>
             <SelectContent>
@@ -170,12 +170,12 @@ export default function CreateTaskModal({
           <div>
             <button
               type='submit'
-              className='text-sm px-4 py-2 bg-lime-400 text-neutral-900 lexend-giga-700 uppercase font-bold rounded-lg'
+              className='text-sm px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 uppercase font-bold tracking-wide rounded-lg transition-colors'
             >
               Save
             </button>
           </div>
-          {error && <p style={{ color: "red" }}>{error}</p>}
+          {error && <p className="text-destructive">{error}</p>}
         </DialogFooter>
       </form>
     </DialogContent>

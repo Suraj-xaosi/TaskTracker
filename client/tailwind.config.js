@@ -4,11 +4,15 @@ module.exports = {
   content: ["src/**/*.{ts,tsx,js,jsx}", "components/**/*.{js,jsxts,tsx}"],
   theme: {
   	extend: {
+  		fontFamily: {
+  			sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+  			serif: ['"Playfair Display"', 'ui-serif', 'Georgia', 'serif'],
+  		},
   		colors: {
   			border: 'hsl(var(--border))',
   			input: 'hsl(var(--input))',
   			ring: 'hsl(var(--ring))',
-  			background: '#f3f3f3',
+  			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			primary: {
   				DEFAULT: 'hsl(var(--primary))',

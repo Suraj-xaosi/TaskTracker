@@ -34,16 +34,16 @@ export default function Day({ setCurrentTab }) {
 
   if (currentCycle.goals.length === 0) {
     return (
-      <div className='bg-neutral-900 border border-neutral-800 text-neutral-100 rounded-lg p-6'>
-        <h2 className='text-xl text-lime-400 uppercase lexend-giga-700 flex items-center'>
+      <div className='bg-card border border-border text-card-foreground rounded-lg p-6'>
+        <h2 className='text-xl text-foreground uppercase font-serif tracking-wide flex items-center'>
           Today
         </h2>
-        <p className='text-neutral-400 text-xs my-3'>
+        <p className='text-muted-foreground text-xs my-3'>
           No goals found. Please create a goal to get started.
         </p>
         <Separator />
         <button
-          className='flex gap-2 items-center my-5 px-4 py-1 bg-lime-400 text-neutral-900 font-bold rounded-full uppercase legend-giga-700 text-xs'
+          className='flex gap-2 items-center my-5 px-4 py-1 bg-primary text-primary-foreground hover:bg-primary/90 transition-all font-bold rounded-full uppercase text-xs'
           onClick={() => setCurrentTab(TABS.CYCLE)}
         >
           <Plus className='h-6 rounded-full p-1' />
@@ -67,7 +67,7 @@ export default function Day({ setCurrentTab }) {
 
     return (
       <div ref={drop} className='w-full rounded-lg'>
-        <h4 className='font-bold'>{status === 'todo' ? 'Todo' : status === 'in-progress' ? 'In Progress' : 'Completed'}</h4>
+        <h4 className='font-semibold text-foreground uppercase text-sm tracking-wide mb-2'>{status === 'todo' ? 'Todo' : status === 'in-progress' ? 'In Progress' : 'Completed'}</h4>
         {tasks.map((task) => (
           <Task
             task={task}
@@ -84,28 +84,28 @@ export default function Day({ setCurrentTab }) {
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <div className='bg-neutral-900 border border-neutral-800 text-neutral-100 rounded-lg p-6'>
+      <div className='bg-card border border-border text-card-foreground rounded-lg p-6'>
         <div className='flex justify-between'>
-          <h2 className='text-xl uppercase flex items-center'>
+          <h2 className='text-xl text-foreground font-serif tracking-wide uppercase flex items-center'>
             Today{" "}
-            <span className='text-neutral-400 text-sm ml-3'>
+            <span className='text-muted-foreground text-sm ml-3 font-sans normal-case tracking-normal'>
               {dueDate ? dueDate.toLocaleDateString() : 'No date selected'}
             </span>
           </h2>
           <span className="flex items-center gap-2">
-            <span className="text-neutral-300">Execution Score:</span>
-            <span className="text-lime-400 font-bold">
+            <span className="text-muted-foreground">Execution Score:</span>
+            <span className="text-primary font-bold">
               {dailyScore === null ? 'N/A' : `${dailyScore.toFixed(2)}%`}
             </span>
           </span>
         </div>
         <div className='my-5'>
-          <label>Select day:</label>
+          <label className='text-foreground text-sm'>Select day:</label>
           <Popover modal={true}>
             <PopoverTrigger asChild>
               <Button
                 variant={"outline"}
-                className='bg-neutral-800 hover:bg-neutral-800 mt-3 border-neutral-700 text-neutral-100 hover:text-neutral-100 rounded-lg p-2 w-full'
+                className='bg-background hover:bg-accent mt-3 border-input text-foreground hover:text-foreground rounded-lg p-2 w-full'
               >
                 {dueDate ? (
                   format(dueDate, "PPP")
@@ -136,7 +136,7 @@ export default function Day({ setCurrentTab }) {
             <DialogTrigger asChild>
               <button
                 onClick={() => setOpen(true)}
-                className='flex items-center gap-2 text-sm mt-5 px-4 py-2 text-neutral-900 bg-lime-400 hover:drop-shadow-lg transition-all font-bold rounded-md lexend-giga-700 uppercase'
+                className='flex items-center gap-2 text-sm mt-5 px-4 py-2 text-primary-foreground bg-primary hover:bg-primary/90 transition-all font-bold rounded-md uppercase'
               >
                 <Plus />
                 <span>Create New Task</span>

@@ -68,19 +68,19 @@ export default function AppSidebar() {
   }
 
   return (
-    <Sidebar variant='floating' className='bg-neutral-950'>
+    <Sidebar variant='floating' className='bg-sidebar'>
       <SidebarHeader>
         <div className='flex p-3 gap-2 w-full justify-between items-center'>
           <div
-            className='w-14 h-14 rounded-full bg-lime-400 bg-cover'
+            className='w-14 h-14 rounded-full bg-accent bg-cover'
             style={{ backgroundImage: `url('${user?.profilePicture}')` }}
           ></div>
           <div className='w-9/12 flex flex-col justify-between'>
-            <span className='font-bold lexend-giga-700 text-xs'>
+            <span className='font-bold text-xs text-sidebar-foreground'>
               {user?.username || user?.email}
             </span>
             <div className=''>
-              <span className='text-xs font-bold text-neutral-400'>
+              <span className='text-xs font-bold text-muted-foreground'>
                 Today's Execution Score
               </span>
               <Progress className='mt-1' value={dailyScore} />
@@ -92,7 +92,7 @@ export default function AppSidebar() {
         {/* Active Cycles */}
         <SidebarGroup>
           <SidebarGroupLabel>
-            <span className='p-1 uppercase font-bold text-neutral-100 lexend-giga-700'>
+            <span className='p-1 uppercase font-semibold tracking-wide text-sidebar-foreground'>
               Current Cycles
             </span>
           </SidebarGroupLabel>
@@ -105,10 +105,10 @@ export default function AppSidebar() {
                       <div
                         key={cycle._id}
                         onClick={() => setCurrentCycle(cycle)}
-                        className={`cursor-pointer bg-gradient-to-br from-neutral-800 to-neutral-900 border rounded-md px-5 py-3 transition-all
+                        className={`cursor-pointer bg-card border rounded-md px-5 py-3 transition-all
                           ${currentCycle?._id === cycle._id
-                            ? "border-lime-400 text-lime-400"
-                            : "border-neutral-800 text-neutral-100 hover:border-neutral-600"
+                            ? "border-primary text-primary"
+                            : "border-border text-sidebar-foreground hover:border-muted-foreground/50"
                           }`}
                       >
                         <span className="text-sm font-semibold">{cycle.title}</span>
@@ -116,7 +116,7 @@ export default function AppSidebar() {
                     ))}
                   </div>
                 ) : (
-                  <p className='text-neutral-400 text-sm'>
+                  <p className='text-muted-foreground text-sm'>
                     No active cycles. Create one to get started!
                   </p>
                 )}
@@ -124,9 +124,9 @@ export default function AppSidebar() {
                   <DialogTrigger asChild>
                     <button
                       onClick={() => setOpen(true)}
-                      className='mt-5 px-4 py-1 bg-lime-400 text-neutral-900 uppercase lexend-giga-700 flex items-center gap-2 hover:drop-shadow-lg transition-all font-bold rounded-full'
+                      className='mt-5 px-4 py-1 bg-primary text-primary-foreground uppercase flex items-center gap-2 hover:bg-primary/90 transition-all font-bold rounded-full'
                     >
-                      <span className='rounded-full text-lime-400 bg-neutral-900 p-2'>
+                      <span className='rounded-full text-primary bg-foreground p-2'>
                         <Plus />
                       </span>
                       Create New Cycle
@@ -143,7 +143,7 @@ export default function AppSidebar() {
         {pastCycles.length > 0 && (
           <SidebarGroup>
             <SidebarGroupLabel>
-              <span className='p-1 uppercase font-bold text-neutral-100 lexend-giga-700'>
+              <span className='p-1 uppercase font-semibold tracking-wide text-sidebar-foreground'>
                 Past Cycles
               </span>
             </SidebarGroupLabel>
@@ -155,14 +155,14 @@ export default function AppSidebar() {
                       <div
                         key={cycle._id}
                         onClick={() => setCurrentCycle(cycle)}
-                        className={`cursor-pointer bg-gradient-to-br from-neutral-800 to-neutral-900 border rounded-md px-5 py-3 transition-all opacity-60
+                        className={`cursor-pointer bg-card border rounded-md px-5 py-3 transition-all opacity-60
                           ${currentCycle?._id === cycle._id
-                            ? "border-lime-400 text-lime-400 opacity-100"
-                            : "border-neutral-800 text-neutral-400 hover:border-neutral-600"
+                            ? "border-primary text-primary opacity-100"
+                            : "border-border text-muted-foreground hover:border-muted-foreground/50"
                           }`}
                       >
                         <span className="text-sm font-semibold">{cycle.title}</span>
-                        <p className="text-xs text-neutral-500 mt-1">
+                        <p className="text-xs text-muted-foreground mt-1">
                           Ended {new Date(cycle.endDate).toLocaleDateString()}
                         </p>
                       </div>
@@ -177,7 +177,7 @@ export default function AppSidebar() {
         <Separator />
         <SidebarFooter>
           <button
-            className='flex gap-3 text-sm items-center px-4 py-2 text-neutral-400 hover:text-lime-400 font-bold'
+            className='flex gap-3 text-sm items-center px-4 py-2 text-muted-foreground hover:text-primary font-bold'
             onClick={handleLogout}
           >
             Sign out <LogOut size={15} />

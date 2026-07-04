@@ -20,9 +20,9 @@ const Loader: React.FC<LoaderProps> = ({ size = "medium" }) => {
     <div className='flex items-center gap-2'>
       <LoaderIcon
         size={logoSize}
-        className='animate-[spin_2s_linear_infinite] text-lime-400'
+        className='animate-[spin_2s_linear_infinite] text-primary'
       />
-      <span className={`${fontSize} font-bold uppercase lexend-giga-700`}>
+      <span className={`${fontSize} font-bold uppercase text-foreground`}>
         Loading...
       </span>
     </div>

@@ -36,27 +36,27 @@ const VisionBoard = ({ setCurrentTab }) => {
 
   const dialog = (
     <Dialog>
-      <DialogTrigger className='h-full w-full cursor-pointer text-neutral-500 hover:text-lime-400 flex flex-col gap-3 justify-center items-center'>
-        <div className='bg-neutral-800 text-lime-400 p-5 rounded-full'>
+      <DialogTrigger className='h-full w-full cursor-pointer text-muted-foreground hover:text-primary flex flex-col gap-3 justify-center items-center'>
+        <div className='bg-accent text-primary p-5 rounded-full'>
           <Image />
         </div>
         <span className='text-sm font-bold flex items-center'>
           <Plus className='h-4' /> Add your vision board
         </span>
       </DialogTrigger>
-      <DialogContent className='bg-neutral-900 border border-neutral-800 text-neutral-100 rounded-lg p-6'>
-        <DialogHeader className='text-lg text-lime-400 uppercase lexend-giga-700'>
+      <DialogContent className='bg-card border border-border text-card-foreground rounded-lg p-6'>
+        <DialogHeader className='text-lg text-foreground uppercase font-serif tracking-wide'>
           <DialogTitle>Create Vision Board</DialogTitle>
         </DialogHeader>
         <Separator className='my-3' />
         <div>
-          <Label htmlFor='title' className='text-xs text-neutral-400'>
+          <Label htmlFor='title' className='text-xs text-muted-foreground'>
             Enter the URL to your vision board image:
           </Label>
           <Input
             type='url'
             placeholder='https://'
-            className='bg-neutral-800 mt-3 border-neutral-700 text-neutral-100 rounded-lg p-2 w-full'
+            className='bg-background mt-3 border-input text-foreground rounded-lg p-2 w-full'
             value={image}
             onChange={(e) => setImage(e.target.value)}
           />
@@ -64,7 +64,7 @@ const VisionBoard = ({ setCurrentTab }) => {
         <DialogFooter>
           <div className='flex justify-end gap-2'>
             <DialogClose onClick={handleAddVisionBoard}>
-              <button className='...'>Save</button>
+              <button className='text-sm px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 uppercase font-bold tracking-wide rounded-lg transition-colors'>Save</button>
             </DialogClose>
           </div>
         </DialogFooter>
@@ -73,8 +73,8 @@ const VisionBoard = ({ setCurrentTab }) => {
   )
 
   return (
-    <div className='p-6 bg-gradient-to-r from-neutral-900 to-neutral-950 border border-neutral-800 rounded-lg h-full w-full flex flex-col'>
-      <h2 className='text-sm font-bold mb-2 text-white uppercase lexend-giga-700'>
+    <div className='p-6 bg-card border border-border rounded-lg h-full w-full flex flex-col'>
+      <h2 className='text-sm font-semibold mb-2 text-foreground uppercase tracking-wide'>
         Vision Board
       </h2>
       <Separator />
@@ -87,28 +87,28 @@ const VisionBoard = ({ setCurrentTab }) => {
                 {dialog}
               </div>
             </div>
-            <div className='h-full bg-neutral-900 rounded-md p-6'>
-              <h4 className='text-sm flex items-center gap-2 font-bold mb-2 lexend-giga-700 text-neutral-100 uppercase'>
-                <Star /> Your Top Goals
+            <div className='h-full bg-secondary rounded-md p-6'>
+              <h4 className='text-sm flex items-center gap-2 font-semibold mb-2 text-foreground uppercase tracking-wide'>
+                <Star className='text-primary' /> Your Top Goals
               </h4>
               {topGoals.length > 0 ? (
                 topGoals.map((goal) => (
                   <div
                     key={goal._id}
-                    className='my-2 bg-neutral-100 rounded-full px-4 py-2'
+                    className='my-2 bg-card border border-border rounded-full px-4 py-2'
                   >
-                    <span className='font-bold text-sm text-neutral-800'>
+                    <span className='font-bold text-sm text-foreground'>
                       {goal.title}
                     </span>
                   </div>
                 ))
               ) : (
                 <div>
-                  <span className='text-sm text-neutral-500'>
+                  <span className='text-sm text-muted-foreground'>
                     No goals added yet!
                   </span>
                   <button
-                    className='flex gap-2 items-center my-5 px-4 py-1 bg-lime-400 font-bold rounded-full uppercase legend-giga-700 text-xs'
+                    className='flex gap-2 items-center my-5 px-4 py-1 bg-primary text-primary-foreground font-bold rounded-full uppercase tracking-wide text-xs'
                     onClick={() => setCurrentTab(TABS.CYCLE)}
                   >
                     <Plus className='h-6 rounded-full p-1' />
@@ -119,7 +119,7 @@ const VisionBoard = ({ setCurrentTab }) => {
             </div>
           </div>
         ) : (
-          <div className='relative cursor-pointer w-full h-full rounded-lg border border-dashed border-neutral-700 bg-neutral-950 flex gap-3 flex-col justify-center items-center'>
+          <div className='relative cursor-pointer w-full h-full rounded-lg border border-dashed border-border bg-muted/40 flex gap-3 flex-col justify-center items-center'>
             {dialog}
           </div>
         )}

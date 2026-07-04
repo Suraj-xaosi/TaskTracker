@@ -20,7 +20,7 @@ const Dashboard = () => {
 
   if (loading) {
     return (
-      <div className='bg-neutral-950 text-neutral-100 w-screen h-screen flex justify-center items-center'>
+      <div className='bg-background text-foreground w-screen h-screen flex justify-center items-center'>
         <Loader size='large' />
       </div>
     )
@@ -30,15 +30,15 @@ const Dashboard = () => {
     <div className='h-screen flex'>
       <SidebarProvider>
         <AppSidebar></AppSidebar>
-        <main className='w-full h-full flex flex-col bg-neutral-950 p-2'>
-          <SidebarTrigger className='text-neutral-200 mt-2' />
+        <main className='w-full h-full flex flex-col bg-background p-2'>
+          <SidebarTrigger className='text-foreground mt-2' />
           {cycles.length > 0 ? (
             <Tabs
               value={currentTab}
               onValueChange={setCurrentTab}
               className='w-full h-full flex flex-col'
             >
-              <TabsList className='p-3 mb-2 py-5 w-full gap-3 bg-neutral-900 border border-neutral-800'>
+              <TabsList className='p-3 mb-2 py-5 w-full gap-3 bg-card border border-border'>
                 <TabsTrigger value={TABS.OVERVIEW}>Overview</TabsTrigger>
                 <TabsTrigger value={TABS.DAY}>Today</TabsTrigger>
                 <TabsTrigger value={TABS.WEEK}>This Week</TabsTrigger>
@@ -58,17 +58,17 @@ const Dashboard = () => {
               </TabsContent>
             </Tabs>
           ) : (
-            <div className='w-full h-72 p-6 bg-gradient-to-br from-neutral-900 to-neutral-950 border border-neutral-800 rounded-lg flex flex-col gap-5 justify-center items-center'>
-              <span className='text-neutral-400 text-sm'>
+            <div className='w-full h-72 p-6 bg-secondary border border-border rounded-lg flex flex-col gap-5 justify-center items-center'>
+              <span className='text-muted-foreground text-sm'>
                 No cycles found. Create one to get started!
               </span>
               <Dialog open={open} onOpenChange={setOpen}>
                 <DialogTrigger asChild>
                   <button
                     onClick={() => setOpen(true)}
-                    className='px-4 py-1 bg-lime-400 text-neutral-900 uppercase lexend-giga-700 flex items-center gap-2 hover:drop-shadow-lg transition-all font-bold rounded-full'
+                    className='px-4 py-1 bg-primary text-primary-foreground uppercase font-bold flex items-center gap-2 hover:bg-primary/90 transition-all rounded-full'
                   >
-                    <span className='rounded-full text-lime-400 bg-neutral-900 p-2'>
+                    <span className='rounded-full text-primary bg-foreground p-2'>
                       <Plus size={15} />
                     </span>
                     <span className="text-xs">Create New Cycle</span>

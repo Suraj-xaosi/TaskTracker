@@ -19,16 +19,16 @@ export default function Task({ cycleId, task, deleteTask, goals, updateTask }) {
     <div
       ref={drag}
       style={{ opacity: isDragging ? 0.5 : 1, cursor: 'move' }}
-      className='bg-gradient-to-br from-neutral-900 to-neutral-950 border border-neutral-800 text-neutral-100 text-sm rounded-lg p-2 my-2'
+      className='bg-card border border-border text-card-foreground text-sm rounded-lg p-2 my-2'
       key={task._id}
     >
-      <h4 className='font-bold'>{task.title}</h4>
+      <h4 className='font-bold text-foreground'>{task.title}</h4>
       <div className='flex justify-between'>
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
             <button
               onClick={() => setOpen(true)}
-              className='text-neutral-500 text-sm'
+              className='text-primary hover:text-primary/80 text-sm font-medium'
             >
               Edit
             </button>
@@ -43,7 +43,7 @@ export default function Task({ cycleId, task, deleteTask, goals, updateTask }) {
         </Dialog>
         <button
           onClick={() => deleteTask(task._id)}
-          className='text-red-500 text-sm'
+          className='text-destructive text-sm font-medium'
         >
           Delete
         </button>

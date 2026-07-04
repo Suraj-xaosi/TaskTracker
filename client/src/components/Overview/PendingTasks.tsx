@@ -9,18 +9,18 @@ const PendingTasks = ({ setCurrentTab }) => {
   const pendingTasks = tasks.filter((task) => task.status !== "completed")
 
   return (
-    <div className='p-6 bg-gradient-to-l from-neutral-900 to-neutral-950 border border-neutral-800 rounded-lg h-full'>
-      <h2 className='text-sm font-bold mb-2 text-neutral-100 lexend-giga-700 uppercase'>
+    <div className='p-6 bg-card border border-border rounded-lg h-full'>
+      <h2 className='text-sm font-semibold mb-2 text-foreground uppercase tracking-wide'>
         Today's Pending Tasks
       </h2>
       <Separator className='mb-2' />
       {tasks.length === 0 && (
         <>
           <div className='flex flex-col gap-2 text-sm my-3'>
-            <p className='text-neutral-400 text-s'>No tasks found</p>
+            <p className='text-muted-foreground text-sm'>No tasks found</p>
           </div>
           <button
-            className='flex gap-2 items-center my-5 px-4 py-1 bg-lime-400 font-bold rounded-full uppercase legend-giga-700 text-xs'
+            className='flex gap-2 items-center my-5 px-4 py-1 bg-primary text-primary-foreground font-bold rounded-full uppercase tracking-wide text-xs'
             onClick={() => setCurrentTab(TABS.DAY)}
           >
             <Plus className='h-6 rounded-full p-1' />
@@ -31,10 +31,10 @@ const PendingTasks = ({ setCurrentTab }) => {
       {pendingTasks.length === 0 && tasks.length > 0 && (
         <>
           <div className='flex flex-col gap-2 text-sm my-3'>
-            <p className='text-neutral-400 text-sm'>No pending tasks</p>
+            <p className='text-muted-foreground text-sm'>No pending tasks</p>
           </div>
           <button
-            className='flex gap-2 items-center my-5 px-4 py-1 bg-lime-400 font-bold rounded-full uppercase legend-giga-700 text-xs'
+            className='flex gap-2 items-center my-5 px-4 py-1 bg-primary text-primary-foreground font-bold rounded-full uppercase tracking-wide text-xs'
             onClick={() => setCurrentTab(TABS.DAY)}
           >
             <Plus className='h-6 rounded-full p-1' />
@@ -48,13 +48,13 @@ const PendingTasks = ({ setCurrentTab }) => {
             {pendingTasks.map((task, index) => (
               <li
                 key={index}
-                className='py-2 text-neutral-200 bg-neutral-800 px-2 rounded-md'
+                className='py-2 text-foreground bg-secondary px-2 rounded-md'
               >
                 {task.title}
               </li>
             ))}
           </ul>
-          <button className='mt-2 bg-lime-400 rounded-full px-3 uppercase legend-giga-700 text-xs py-1 text-neutral-900 font-bold'>
+          <button className='mt-2 bg-primary rounded-full px-3 uppercase tracking-wide text-xs py-1 text-primary-foreground font-bold'>
             View all
           </button>
         </>

@@ -27,39 +27,36 @@ const WeeklyExecutionTrend = () => {
   }, [currentCycle])
 
   return (
-    <div className='p-6 bg-gradient-to-r from-neutral-900 to-neutral-950 border border-neutral-800 rounded-lg h-full w-full flex flex-col gap-2'>
-      <h2 className='text-sm text-neutral-100 uppercase font-bold lexend-giga-700'>
+    <div className='p-6 bg-card border border-border rounded-lg h-full w-full flex flex-col gap-2'>
+      <h2 className='text-sm text-foreground uppercase font-semibold tracking-wide'>
         Weekly Execution Trend
       </h2>
-      <span className='text-xs text-neutral-400'>
+      <span className='text-xs text-muted-foreground'>
         A summary of how you've spent the past weeks of this cycle
       </span>
       <Separator />
       <div
-        className='grid grid-cols-12 h-[70%] justify-between gap-1 mt-3 p-2 rounded-md'
-        style={{
-          backgroundImage: "radial-gradient(#262626, #171717)",
-        }}
+        className='grid grid-cols-12 h-[70%] justify-between gap-1 mt-3 p-2 rounded-md bg-muted/30'
       >
         {loading ? (
           <div className='col-span-12 h-full flex items-center justify-center'>
-            <span className='text-neutral-400 text-sm'>Loading...</span>
+            <span className='text-muted-foreground text-sm'>Loading...</span>
           </div>
         ) : data.length > 0 ? (
           data.map((value, index) => (
             <div className='h-full text-center self-end' key={index}>
               <div
                 style={{ height: `${value}%` }}
-                className='bg-gradient-to-b from-yellow-400 via-green-400 to-indigo-500 rounded-sm'
+                className='bg-gradient-to-t from-primary to-primary/30 rounded-sm'
               ></div>
-              <span className='text-neutral-100 text-xs text-center lexend-giga-400'>
+              <span className='text-foreground text-xs text-center'>
                 {Math.round(value)}
               </span>
             </div>
           ))
         ) : (
           <div className='col-span-12 h-full flex items-center justify-center'>
-            <span className='text-neutral-400 text-sm'>No data yet</span>
+            <span className='text-muted-foreground text-sm'>No data yet</span>
           </div>
         )}
       </div>

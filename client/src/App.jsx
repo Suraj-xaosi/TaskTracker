@@ -12,27 +12,27 @@ function App() {
   }, [isAuthenticated])
 
   const loginWithGoogle = async () => {
-    window.location.href = `${import.meta.env.VITE_API_URL}/auth/google`
+    window.location.href = `${import.meta.env.VITE_API_URL || "http://localhost:3000"}/auth/google`
   }
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center p-4">
-      <div className="w-full max-w-2xl bg-[#0f0f0f] rounded-2xl border border-[#1e1e1e] p-10">
+    <div className="min-h-screen bg-background flex items-center justify-center p-4">
+      <div className="w-full max-w-2xl bg-card rounded-2xl border border-border p-10">
 
         {/* Badge */}
         <div className="flex justify-center mb-6">
-          <span className="inline-flex items-center gap-1.5 bg-[#1a2d0a] text-[#a3e635] text-xs font-medium px-3 py-1.5 rounded-full border border-[#2d4d0f]">
+          <span className="inline-flex items-center gap-1.5 bg-accent text-primary text-xs font-medium px-3 py-1.5 rounded-full border border-primary/30">
             ⚡ Execution-first productivity
           </span>
         </div>
 
         {/* Headline */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-medium text-[#f0f0f0] leading-tight mb-3">
-            Work in <span className="text-[#a3e635]">cycles.</span><br />
+          <h1 className="text-4xl font-serif font-medium text-foreground leading-tight mb-3">
+            Work in <span className="text-primary">cycles.</span><br />
             Ship with intention.
           </h1>
-          <p className="text-[#666] text-base leading-relaxed max-w-sm mx-auto">
+          <p className="text-muted-foreground text-base leading-relaxed max-w-sm mx-auto">
             Set goals, track daily tasks, and measure your execution score — all in one focused workspace built for builders.
           </p>
         </div>
@@ -41,7 +41,7 @@ function App() {
         <div className="flex justify-center mb-10">
           <button
             onClick={loginWithGoogle}
-            className="flex items-center gap-2.5 bg-[#a3e635] hover:bg-[#bef264] text-[#0a1a00] font-medium text-sm px-7 py-3.5 rounded-lg transition-all hover:-translate-y-0.5 active:scale-95"
+            className="flex items-center gap-2.5 bg-primary hover:bg-primary/90 text-primary-foreground font-medium text-sm px-7 py-3.5 rounded-lg transition-all hover:-translate-y-0.5 active:scale-95"
           >
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
               <path d="M17.64 9.205c0-.639-.057-1.252-.164-1.841H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/>
@@ -53,7 +53,7 @@ function App() {
           </button>
         </div>
 
-        <hr className="border-[#1e1e1e] mb-8" />
+        <hr className="border-border mb-8" />
 
         {/* Feature cards */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
@@ -63,15 +63,15 @@ function App() {
             { icon: "📈", title: "Execution score", desc: "Daily & weekly performance metrics" },
             { icon: "🖼️", title: "Vision board", desc: "Stay motivated with your why" },
           ].map((f) => (
-            <div key={f.title} className="bg-[#181818] border border-[#252525] rounded-xl p-4">
+            <div key={f.title} className="bg-secondary border border-border rounded-xl p-4">
               <div className="text-xl mb-2">{f.icon}</div>
-              <div className="text-[#e5e5e5] text-xs font-medium mb-1">{f.title}</div>
-              <div className="text-[#555] text-xs leading-relaxed">{f.desc}</div>
+              <div className="text-foreground text-xs font-medium mb-1">{f.title}</div>
+              <div className="text-muted-foreground text-xs leading-relaxed">{f.desc}</div>
             </div>
           ))}
         </div>
 
-        <p className="text-center text-xs text-[#333]">
+        <p className="text-center text-xs text-muted-foreground">
           No account needed · Sign in with Google to get started · Free to use
         </p>
       </div>
