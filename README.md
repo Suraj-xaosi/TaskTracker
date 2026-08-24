@@ -2,9 +2,15 @@
 
 A personal productivity app that helps users manage goals across time-boxed cycles, track daily tasks, and automatically score execution progress.
 
+deployed link - https://workcycle-dashboard.vercel.app
+
 ## What It Does
 
 Users log in with Google, create **Cycles** (time-boxed sprints with a start and end date), define **Goals** within each cycle, and break goals down into **Tasks** and **Tactics**. Every time a task is completed, the server automatically updates a **DailyScore** — no manual tracking required.
+
+![alt text](<Screenshot 2026-08-22 135319.png>)
+![alt text](<Screenshot 2026-08-22 133907.png>)
+![alt text](<Screenshot 2026-08-22 135210.png>)
 
 ## Tech Stack
 - **frontend :**react js, tailwind , shad cn , axios
